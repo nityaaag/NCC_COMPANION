@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">NCC_COMPANION</string>
+    <string name="app_name">NCC Companion</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_ranks">Ranks</string>
+    <string name="nav_commands">Commands</string>
+    <string name="nav_song">NCC Song</string>
+    <string name="nav_certificates">Certificates</string>
+    <string name="nav_camps">Camps</string>
+    <string name="nav_resources">Resources</string>
 </resources>
