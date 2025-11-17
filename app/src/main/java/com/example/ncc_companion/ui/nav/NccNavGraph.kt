@@ -1,4 +1,3 @@
-// Re-evaluating this file to fix phantom overload error
 package com.example.ncc_companion.ui.nav
 
 import androidx.compose.runtime.Composable
@@ -32,6 +31,8 @@ fun NccNavGraph(
         startDestination = NccDestination.Splash.route,
         modifier = modifier
     ) {
+
+        /* ---------------------- SPLASH SCREEN ---------------------- */
         composable(NccDestination.Splash.route) {
             com.example.ncc_companion.ui.screens.splash.SplashScreen(
                 onNavigateToHome = {
@@ -41,6 +42,8 @@ fun NccNavGraph(
                 }
             )
         }
+
+        /* ---------------------- HOME SCREEN ---------------------- */
         composable(NccDestination.Home.route) {
             val ecoWeeks by viewModel.ecoActivityWeeks.collectAsState()
             HomeScreen(
@@ -56,27 +59,37 @@ fun NccNavGraph(
                 }
             )
         }
+
+        /* ---------------------- RANKS SCREEN ---------------------- */
         composable(NccDestination.Ranks.route) {
             val ranks by viewModel.ranks.collectAsState()
             RanksScreen(ranks = ranks)
         }
+
+        /* ---------------------- COMMANDS SCREEN ---------------------- */
         composable(NccDestination.Commands.route) {
             val commands by viewModel.commands.collectAsState()
             CommandsScreen(commands = commands)
         }
+
+        /* ---------------------- NCC SONG SCREEN ---------------------- */
         composable(NccDestination.Song.route) {
             SongScreen(
                 lyrics = viewModel.nccSongLyrics,
                 playerState = playerState
             )
         }
+
+        /* ---------------------- ATTENDANCE SCREEN ---------------------- */
         composable(NccDestination.Certificates.route) {
             val attendance by viewModel.attendance.collectAsState()
+
             CertificatesScreen(
-                attendance = attendance,
-                onRequestExemption = { /* TODO: Implement exemption request */ }
+                attendance = attendance
             )
         }
+
+        /* ---------------------- CAMPS / ECO-ACTIVITIES ---------------------- */
         composable(NccDestination.Camps.route) {
             val ecoWeeks by viewModel.ecoActivityWeeks.collectAsState()
             CampsScreen(
@@ -86,14 +99,17 @@ fun NccNavGraph(
                 }
             )
         }
+
+        /* ---------------------- RESOURCES SCREEN ---------------------- */
         composable(NccDestination.Resources.route) {
             val pdfResources by viewModel.pdfResources.collectAsState()
             val resourceLinks by viewModel.resourceLinks.collectAsState()
-            val uploaded by viewModel.uploadedPdfs.collectAsState()
+            val uploadedPdfs by viewModel.uploadedPdfs.collectAsState()
+
             ResourcesScreen(
                 pdfResources = pdfResources,
                 resourceLinks = resourceLinks,
-                uploadedPdfs = uploaded,
+                uploadedPdfs = uploadedPdfs,
                 onPdfUploaded = { name, uri ->
                     viewModel.addUploadedPdf(UploadedPdf(name, uri))
                 }
