@@ -11,9 +11,8 @@ import com.example.ncc_companion.model.AttendanceSummary
 
 @Composable
 fun CertificatesScreen(
-    attendance: AttendanceSummary,
+    attendance: AttendanceSummary
 ) {
-    // State for showing prompt + approval bar
     var showExemptionRequested by remember { mutableStateOf(false) }
 
     Column(
@@ -21,6 +20,7 @@ fun CertificatesScreen(
             .padding(horizontal = 20.dp)
             .padding(vertical = 16.dp)
     ) {
+
         AttendanceCard(
             record = attendance,
             onRequestExemption = {
@@ -28,37 +28,40 @@ fun CertificatesScreen(
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        // Snackbar-like success message
+        /* ---------------------------------------------------
+         *   Success Prompt + Approval Progress Bar
+         * --------------------------------------------------- */
         if (showExemptionRequested) {
+
             Surface(
                 color = MaterialTheme.colorScheme.primaryContainer,
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
             ) {
                 Text(
                     text = "Exemption Request Submitted",
                     modifier = Modifier.padding(12.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.SemiBold
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Approval Bar
             LinearProgressIndicator(
-                progress = 0.3f, // You can update this dynamically
+                progress = 0.35f,
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.primary,
                 trackColor = MaterialTheme.colorScheme.surfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "Pending Approval",
-                style = MaterialTheme.typography.labelMedium,
+                text = "Pending Approval...",
+                style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -72,18 +75,29 @@ private fun AttendanceCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
+
         Column(modifier = Modifier.padding(20.dp)) {
 
+            /* ---------------------------------------------------
+             *                Cadet Title
+             * --------------------------------------------------- */
             Text(
                 text = record.cadetName,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
+            /* ---------------------------------------------------
+             *        Circular Attendance Progress
+             * --------------------------------------------------- */
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,9 +107,11 @@ private fun AttendanceCard(
                 Box(contentAlignment = Alignment.Center) {
                     CircularProgressIndicator(
                         progress = record.attendancePercent.coerceIn(0, 100) / 100f,
-                        modifier = Modifier.size(120.dp),
-                        strokeWidth = 12.dp
+                        modifier = Modifier.size(130.dp),
+                        strokeWidth = 10.dp,
+                        color = MaterialTheme.colorScheme.primary
                     )
+
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
                             text = "${record.attendancePercent}%",
@@ -105,7 +121,7 @@ private fun AttendanceCard(
                         )
                         Text(
                             text = "Attendance",
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.labelMedium
                         )
                     }
                 }
@@ -114,33 +130,41 @@ private fun AttendanceCard(
                     modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.End
                 ) {
-                    AttendanceMetric("Sessions Attended", record.attended.toString(), true)
+                    AttendanceMetric("Sessions Attended", "${record.attended}", true)
                     Spacer(modifier = Modifier.height(12.dp))
-                    AttendanceMetric("Sessions Missed", record.missed.toString(), false)
+                    AttendanceMetric("Sessions Missed", "${record.missed}", false)
                     Spacer(modifier = Modifier.height(12.dp))
-                    AttendanceMetric("Total Sessions", record.totalParades.toString(), null)
+                    AttendanceMetric("Total Sessions", "${record.totalParades}", null)
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             LinearProgressIndicator(
-                progress = record.attendancePercent.coerceIn(0, 100) / 100f,
-                modifier = Modifier.fillMaxWidth()
+                progress = record.attendancePercent / 100f,
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
+            /* ---------------------------------------------------
+             *                Request Exemption Button
+             * --------------------------------------------------- */
             Button(
                 onClick = { onRequestExemption() },
                 enabled = record.missed > 0,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "Request Exemption")
+                Text(
+                    text = "Request Exemption",
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
 
             if (record.remarks.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(14.dp))
+
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = MaterialTheme.shapes.small
@@ -148,7 +172,7 @@ private fun AttendanceCard(
                     Text(
                         text = record.remarks,
                         modifier = Modifier.padding(12.dp),
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
@@ -163,16 +187,18 @@ private fun AttendanceMetric(
     isPositive: Boolean?
 ) {
     Column(horizontalAlignment = Alignment.End) {
+
         Text(
             text = value,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = when (isPositive) {
                 true -> MaterialTheme.colorScheme.primary
                 false -> MaterialTheme.colorScheme.error
-                null -> MaterialTheme.colorScheme.onSurface
+                else -> MaterialTheme.colorScheme.onSurface
             }
         )
+
         Text(
             text = label,
             style = MaterialTheme.typography.labelMedium,

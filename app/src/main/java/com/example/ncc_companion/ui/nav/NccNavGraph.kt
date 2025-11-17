@@ -26,13 +26,16 @@ fun NccNavGraph(
     playerState: NccSongPlayerState,
     modifier: Modifier = Modifier
 ) {
+
     NavHost(
         navController = navController,
         startDestination = NccDestination.Splash.route,
         modifier = modifier
     ) {
 
-        /* ---------------------- SPLASH SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        SPLASH SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Splash.route) {
             com.example.ncc_companion.ui.screens.splash.SplashScreen(
                 onNavigateToHome = {
@@ -43,9 +46,12 @@ fun NccNavGraph(
             )
         }
 
-        /* ---------------------- HOME SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        HOME SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Home.route) {
             val ecoWeeks by viewModel.ecoActivityWeeks.collectAsState()
+
             HomeScreen(
                 featuredEcoWeeks = ecoWeeks.take(2),
                 onNavigate = { route ->
@@ -60,19 +66,25 @@ fun NccNavGraph(
             )
         }
 
-        /* ---------------------- RANKS SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        RANKS SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Ranks.route) {
             val ranks by viewModel.ranks.collectAsState()
             RanksScreen(ranks = ranks)
         }
 
-        /* ---------------------- COMMANDS SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        COMMANDS SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Commands.route) {
             val commands by viewModel.commands.collectAsState()
             CommandsScreen(commands = commands)
         }
 
-        /* ---------------------- NCC SONG SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        NCC SONG SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Song.route) {
             SongScreen(
                 lyrics = viewModel.nccSongLyrics,
@@ -80,7 +92,9 @@ fun NccNavGraph(
             )
         }
 
-        /* ---------------------- ATTENDANCE SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *               ATTENDANCE / CERTIFICATES SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Certificates.route) {
             val attendance by viewModel.attendance.collectAsState()
 
@@ -89,9 +103,12 @@ fun NccNavGraph(
             )
         }
 
-        /* ---------------------- CAMPS / ECO-ACTIVITIES ---------------------- */
+        /* -------------------------------------------------------------
+         *                  CAMPS / ECO ACTIVITY SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Camps.route) {
             val ecoWeeks by viewModel.ecoActivityWeeks.collectAsState()
+
             CampsScreen(
                 weeks = ecoWeeks,
                 onTaskToggle = { taskId ->
@@ -100,7 +117,9 @@ fun NccNavGraph(
             )
         }
 
-        /* ---------------------- RESOURCES SCREEN ---------------------- */
+        /* -------------------------------------------------------------
+         *                        RESOURCES SCREEN
+         * ------------------------------------------------------------- */
         composable(NccDestination.Resources.route) {
             val pdfResources by viewModel.pdfResources.collectAsState()
             val resourceLinks by viewModel.resourceLinks.collectAsState()
