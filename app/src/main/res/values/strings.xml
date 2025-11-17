@@ -4,7 +4,7 @@
     <string name="nav_ranks">Ranks</string>
     <string name="nav_commands">Commands</string>
     <string name="nav_song">NCC Song</string>
-    <string name="nav_certificates">Certificates</string>
-    <string name="nav_camps">Camps</string>
+    <string name="nav_certificates">Attendance</string>
+    <string name="nav_camps">Eco Activity</string>
     <string name="nav_resources">Resources</string>
 </resources>
