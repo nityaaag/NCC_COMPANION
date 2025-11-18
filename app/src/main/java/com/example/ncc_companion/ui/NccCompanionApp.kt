@@ -18,7 +18,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.ncc_companion.R
 import com.example.ncc_companion.data.NccViewModel
 import com.example.ncc_companion.media.rememberNccSongPlayer
 import com.example.ncc_companion.ui.nav.BottomNavDestinations
@@ -34,23 +33,22 @@ fun NccCompanionApp(
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val isBottomBarRoute = BottomNavDestinations.any { destination ->
-        currentRoute?.startsWith(destination.route) == true
-    }
-    val currentTopBarDestination = BottomNavDestinations.firstOrNull { destination ->
-        currentRoute?.startsWith(destination.route) == true
-    } ?: NccDestination.Home
-    val topBarTitleRes = currentTopBarDestination.labelRes
-    val isSplashScreen = currentRoute == NccDestination.Splash.route
+
+    // Determine if the current screen should have the main scaffold with top/bottom bars
+    val isMainAppScreen = BottomNavDestinations.any { currentRoute?.startsWith(it.route) == true }
 
     val songPlayerState = rememberNccSongPlayer()
 
     NccCompanionTheme {
         Scaffold(
             topBar = {
-                if (!isSplashScreen) {
+                if (isMainAppScreen) {
+                    val currentTopBarDestination = BottomNavDestinations.firstOrNull { destination ->
+                        currentRoute?.startsWith(destination.route) == true
+                    } ?: NccDestination.Home
+
                     CenterAlignedTopAppBar(
-                        title = { Text(text = stringResource(id = topBarTitleRes)) },
+                        title = { Text(text = stringResource(id = currentTopBarDestination.labelRes)) },
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                             containerColor = MaterialTheme.colorScheme.surface,
                             titleContentColor = MaterialTheme.colorScheme.onSurface
@@ -59,7 +57,7 @@ fun NccCompanionApp(
                 }
             },
             bottomBar = {
-                if (isBottomBarRoute && !isSplashScreen) {
+                if (isMainAppScreen) {
                     NavigationBar {
                         BottomNavDestinations.forEach { destination ->
                             val selected = currentRoute?.startsWith(destination.route) == true

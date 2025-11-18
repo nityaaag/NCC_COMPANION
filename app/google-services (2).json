@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "65555582770",
+    "project_id": "ncc-companion-3d105",
+    "storage_bucket": "ncc-companion-3d105.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65555582770:android:135bfb60cf84a21808d12b",
+        "android_client_info": {
+          "package_name": "com.example.ncc_companion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBUxs6T2oefzKDH_3EMfd2OpKwOQtHMwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

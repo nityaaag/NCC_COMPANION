@@ -24,7 +24,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    onNavigateToHome: () -> Unit
+    onNavigateToHome: () -> Unit,
+    onTimeout: () -> Unit
 ) {
     var start by remember { mutableStateOf(false) }
 

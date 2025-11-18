@@ -1,7 +1,6 @@
 package com.example.ncc_companion.data
 
 import androidx.lifecycle.ViewModel
-import androidx.room.util.copy
 import com.example.ncc_companion.model.AttendanceSummary
 import com.example.ncc_companion.model.Command
 import com.example.ncc_companion.model.EcoActivityWeek
@@ -17,34 +16,34 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-private val ERROR.isCompleted: Boolean
-
+// NOTE: Ensure NccRepository is a real class, not an annotation.
 class NccViewModel(
     private val repository: NccRepository = NccRepository()
 ) : ViewModel() {
 
     /* --------------------- RANKS --------------------- */
-    private val _ranks = MutableStateFlow(value = repository.getRanks())
+    // Fixed: Explicitly typed as List<Rank> and assumes repository returns a List
+    private val _ranks = MutableStateFlow<List<Rank>>(repository.getRanks())
     val ranks: StateFlow<List<Rank>> = _ranks.asStateFlow()
 
     /* --------------------- COMMANDS --------------------- */
-    private val _commands = MutableStateFlow(repository.getCommands())
+    private val _commands = MutableStateFlow<List<Command>>(repository.getCommands())
     val commands: StateFlow<List<Command>> = _commands.asStateFlow()
 
     /* --------------------- ECO ACTIVITY WEEKS --------------------- */
-    private val _ecoActivityWeeks = MutableStateFlow(repository.getEcoActivityWeeks())
+    private val _ecoActivityWeeks = MutableStateFlow<List<EcoActivityWeek>>(repository.getEcoActivityWeeks())
     val ecoActivityWeeks: StateFlow<List<EcoActivityWeek>> = _ecoActivityWeeks.asStateFlow()
 
     /* --------------------- USEFUL LINKS --------------------- */
-    private val _resourceLinks = MutableStateFlow(repository.getResourceLinks())
+    private val _resourceLinks = MutableStateFlow<List<ResourceLink>>(repository.getResourceLinks())
     val resourceLinks: StateFlow<List<ResourceLink>> = _resourceLinks.asStateFlow()
 
     /* --------------------- PDF RESOURCES --------------------- */
-    private val _pdfResources = MutableStateFlow(repository.getPdfResources())
+    private val _pdfResources = MutableStateFlow<List<PdfResource>>(repository.getPdfResources())
     val pdfResources: StateFlow<List<PdfResource>> = _pdfResources.asStateFlow()
 
     /* --------------------- ATTENDANCE --------------------- */
-    private val _attendance = MutableStateFlow(repository.getCadetAttendance())
+    private val _attendance = MutableStateFlow<AttendanceSummary>(repository.getCadetAttendance())
     val attendance: StateFlow<AttendanceSummary> = _attendance.asStateFlow()
 
     /* --------------------- UPLOADED PDF LIBRARY --------------------- */
@@ -73,21 +72,17 @@ class NccViewModel(
                     val now = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val newState = !task.isCompleted
 
+                    // Note: Ensure EcoTask is a 'data class' for .copy() to work
                     task.copy(
                         isCompleted = newState,
                         completionDate = if (newState) now.format(Date()) else null
                     )
                 } else task
             }
+            // Note: Ensure EcoActivityWeek is a 'data class' for .copy() to work
             week.copy(tasks = updatedTasks)
         }
 
         _ecoActivityWeeks.value = updated
     }
 }
-
-private fun NccRepository.getRanks() {
-    TODO("Not yet implemented")
-}
-
-annotation class NccRepository

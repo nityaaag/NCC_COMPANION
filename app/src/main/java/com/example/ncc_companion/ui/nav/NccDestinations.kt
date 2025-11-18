@@ -24,6 +24,10 @@ sealed class NccDestination(
     val icon: ImageVector
 ) {
 
+    // ----------------------- AUTH -----------------------
+    data object Auth :
+        NccDestination("auth", R.string.nav_home, Icons.Default.Home) // Icon and label are placeholders
+
     // ----------------------- MAIN SCREENS -----------------------
     data object Home :
         NccDestination("home", R.string.nav_home, Icons.Default.Home)
