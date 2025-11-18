@@ -77,7 +77,7 @@ fun Splash(alpha: Float, scale: Float) {
 
             // NCC LOGO (use your image)
             Image(
-                painter = painterResource(id = R.drawable.ncc_logo),
+                painter = painterResource(id = R.drawable.images),
                 contentDescription = "NCC Logo",
                 modifier = Modifier.size(150.dp)
             )

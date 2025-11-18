@@ -1,231 +1,122 @@
-package com.example.ncc_companion.data
-
-import com.example.ncc_companion.R
-import com.example.ncc_companion.model.AttendanceSummary
 import com.example.ncc_companion.model.Command
-import com.example.ncc_companion.model.EcoActivityWeek
-import com.example.ncc_companion.model.EcoTask
-import com.example.ncc_companion.model.PdfResource
-import com.example.ncc_companion.model.Rank
-import com.example.ncc_companion.model.ResourceLink
-import com.example.ncc_companion.model.Wing
 
-class NccRepository {
+fun getCommands(): List<Command> = listOf(
 
-    fun getCadetAttendance(): AttendanceSummary = AttendanceSummary(
-        id = "current_cadet",
-        cadetName = "Your Attendance",
-        totalParades = 48,
-        attended = 44,
-        excused = 2,
-        remarks = "Keep up the excellent attendance record!"
-    )
+    /* -------------------- BASIC DRILL COMMANDS -------------------- */
 
-    fun getRanks(): List<Rank> = listOf(
-        Rank(
-            id = "army_lcpl",
-            title = "Lance Corporal",
-            level = "Junior Non-Commissioned Officer",
-            description = "First step of leadership for NCC cadets in the Army wing.",
-            wing = Wing.ARMY,
-            imageRes = R.drawable.ic_rank_army
-        ),
-        Rank(
-            id = "army_cpl",
-            title = "Corporal",
-            level = "Junior Non-Commissioned Officer",
-            description = "Responsible for section level discipline and training.",
-            wing = Wing.ARMY,
-            imageRes = R.drawable.ic_rank_army
-        ),
-        Rank(
-            id = "navy_po",
-            title = "Petty Officer",
-            level = "Sailor Supervisor",
-            description = "Key link between cadet divisions and naval instructors.",
-            wing = Wing.NAVY,
-            imageRes = R.drawable.ic_rank_navy
-        ),
-        Rank(
-            id = "navy_cpo",
-            title = "Chief Petty Officer",
-            level = "Senior Cadet",
-            description = "Leads sea training schedules and ceremonial duties.",
-            wing = Wing.NAVY,
-            imageRes = R.drawable.ic_rank_navy
-        ),
-        Rank(
-            id = "air_uwo",
-            title = "Under Officer",
-            level = "Senior Air Cadet",
-            description = "Handles parade formations and flying training roll calls.",
-            wing = Wing.AIR,
-            imageRes = R.drawable.ic_rank_air
-        ),
-        Rank(
-            id = "air_cwo",
-            title = "Cadet Warrant Officer",
-            level = "Top Cadet Rank",
-            description = "Primary advisor to ANOs for air wing operations.",
-            wing = Wing.AIR,
-            imageRes = R.drawable.ic_rank_air
-        )
-    )
+    Command(
+        "cmd_savdhan", "Attention", "Savdhaan",
+        "Stand straight, heels together, body steady, no movement."
+    ),
+    Command("cmd_vishram", "Stand at Ease", "Vishram",
+        "Relax stance with hands behind the back."),
+    Command("cmd_aram", "Rest", "Aaraam Se",
+        "Stand comfortably, slight movement allowed."),
 
-    fun getCommands(): List<Command> = listOf(
-        Command("cmd_savdhan", "Attention", "Savdhaan", "Prepare body and mind in a steady stance."),
-        Command("cmd_vishram", "Stand at Ease", "Vishram", "Relax while keeping discipline between drills."),
-        Command("cmd_dahine", "Right Turn", "Dahine Mud", "Execute a crisp quarter turn to the right."),
-        Command("cmd_baen", "Left Turn", "Baen Mud", "Rotate 90 degrees left with heels locked."),
-        Command("cmd_about", "About Turn", "Daayein Ghoom", "Swift 180-degree turn maintaining formation."),
-        Command("cmd_salute", "Salute", "Salami Shastra", "Ceremonial salute with rifle or bare hand as ordered.")
-    )
+    /* -------------------- TURNING COMMANDS -------------------- */
 
-    fun getEcoActivityWeeks(): List<EcoActivityWeek> = listOf(
-        EcoActivityWeek(
-            weekNumber = "Week 1",
-            startDate = "2025-01-06",
-            endDate = "2025-01-12",
-            tasks = listOf(
-                EcoTask(
-                    id = "task_1_1",
-                    title = "Tree Plantation Drive",
-                    description = "Plant 10 saplings in designated area and document with photos",
-                    week = "Week 1",
-                    assignedDate = "2025-01-06",
-                    dueDate = "2025-01-12",
-                    isCompleted = true,
-                    completionDate = "2025-01-10"
-                ),
-                EcoTask(
-                    id = "task_1_2",
-                    title = "Waste Segregation Workshop",
-                    description = "Organize and conduct waste segregation awareness session",
-                    week = "Week 1",
-                    assignedDate = "2025-01-06",
-                    dueDate = "2025-01-12",
-                    isCompleted = true,
-                    completionDate = "2025-01-11"
-                ),
-                EcoTask(
-                    id = "task_1_3",
-                    title = "Clean-up Campaign",
-                    description = "Participate in local area clean-up drive for 2 hours",
-                    week = "Week 1",
-                    assignedDate = "2025-01-06",
-                    dueDate = "2025-01-12",
-                    isCompleted = false
-                )
-            )
-        ),
-        EcoActivityWeek(
-            weekNumber = "Week 2",
-            startDate = "2025-01-13",
-            endDate = "2025-01-19",
-            tasks = listOf(
-                EcoTask(
-                    id = "task_2_1",
-                    title = "Water Conservation Survey",
-                    description = "Survey 20 households for water usage patterns and suggest improvements",
-                    week = "Week 2",
-                    assignedDate = "2025-01-13",
-                    dueDate = "2025-01-19",
-                    isCompleted = false
-                ),
-                EcoTask(
-                    id = "task_2_2",
-                    title = "Composting Setup",
-                    description = "Set up composting unit at home and maintain for one week",
-                    week = "Week 2",
-                    assignedDate = "2025-01-13",
-                    dueDate = "2025-01-19",
-                    isCompleted = false
-                ),
-                EcoTask(
-                    id = "task_2_3",
-                    title = "Energy Audit",
-                    description = "Conduct energy audit of your home and submit report",
-                    week = "Week 2",
-                    assignedDate = "2025-01-13",
-                    dueDate = "2025-01-19",
-                    isCompleted = false
-                )
-            )
-        ),
-        EcoActivityWeek(
-            weekNumber = "Week 3",
-            startDate = "2025-01-20",
-            endDate = "2025-01-26",
-            tasks = listOf(
-                EcoTask(
-                    id = "task_3_1",
-                    title = "Recycling Drive",
-                    description = "Collect and recycle 5kg of plastic waste from neighborhood",
-                    week = "Week 3",
-                    assignedDate = "2025-01-20",
-                    dueDate = "2025-01-26",
-                    isCompleted = false
-                ),
-                EcoTask(
-                    id = "task_3_2",
-                    title = "Awareness Poster",
-                    description = "Create and display eco-friendly awareness poster in community",
-                    week = "Week 3",
-                    assignedDate = "2025-01-20",
-                    dueDate = "2025-01-26",
-                    isCompleted = false
-                )
-            )
-        )
-    )
+    Command("cmd_dahine", "Right Turn", "Dahine Mud",
+        "Turn 90° to the right, maintaining balance and alignment."),
+    Command("cmd_baen", "Left Turn", "Baen Mud",
+        "Turn 90° to the left crisply."),
+    Command("cmd_about", "About Turn", "Peeche Mud",
+        "Turn 180° keeping heels together."),
+    Command("cmd_right_dress", "Right Dress", "Dahine Saj",
+        "Align the squad to the right."),
+    Command("cmd_left_dress", "Left Dress", "Baen Saj",
+        "Align the squad to the left."),
 
-    fun getResourceLinks(): List<ResourceLink> = listOf(
-        ResourceLink(
-            id = "link_official",
-            title = "NCC Official Website",
-            description = "Latest circulars, policy letters, and announcements.",
-            url = "https://indiancc.nic.in"
-        ),
-        ResourceLink(
-            id = "link_dgncc",
-            title = "DG NCC Handbook",
-            description = "Reference for instructors and cadets.",
-            url = "https://www.dg-ncc.gov.in"
-        ),
-        ResourceLink(
-            id = "link_youtube",
-            title = "NCC YouTube Channel",
-            description = "Video lessons on drill, yoga, and best practices.",
-            url = "https://www.youtube.com/@dgncc"
-        )
-    )
+    /* -------------------- SALUTING COMMANDS -------------------- */
 
-    fun getPdfResources(): List<PdfResource> = listOf(
-        PdfResource(
-            id = "pdf_handbook",
-            title = "Cadet Pocket Book",
-            description = "Essential reference for day-to-day parade queries."
-        ),
-        PdfResource(
-            id = "pdf_drill",
-            title = "Drill Manual",
-            description = "Commands, formations, and ceremonial guard help."
-        ),
-        PdfResource(
-            id = "pdf_map",
-            title = "Map Reading Notes",
-            description = "Quick refresh before camps and tests."
-        )
-    )
+    Command("cmd_salute", "Hand Salute", "Salami Shastra (Without Rifle)",
+        "Raise right hand to the forehead sharply."),
+    Command("cmd_rifle_salute", "Rifle Salute", "Tez Chaal Salami Shastra",
+        "Salute using rifle in ceremonial drills."),
+    Command("cmd_open_order", "Open Order March", "Khuli Line Banaao",
+        "March backward or forward to open spacing for salute."),
+    Command("cmd_close_order", "Close Order March", "Bandh Line Banaao",
+        "Return to closed formation after salute."),
 
-    fun getNccSongLyrics(): String = """
-        Hum Sab Bharatiya Hain, Hum Sab Bharatiya Hain
-        Apni Manzil Ek Hai, Ha, Ha, Ha, Ek Hai
-        Hum Sab Bharatiya Hain
+    /* -------------------- MARCHING COMMANDS -------------------- */
 
-        Kashmir Ki Dharti Rani Hai, Sartaj Himalaya Hai
-        Sadiyon Se Humne Isko Apne Khoon Se Pala Hai
-        Desh Ki Raksha Ki Khatir Hum Shamshir Utha Lenge
-        Hum Sab Bharatiya Hain
-    """.trimIndent()
-}
+    Command("cmd_forward_march", "Forward March", "Dhaaine Kadam Tal",
+        "Begin marching with the left foot first."),
+    Command("cmd_mark_time", "Mark Time", "Tham Se Kadam Taal",
+        "March in place without moving forward."),
+    Command("cmd_halt", "Halt", "Dhaine Tham",
+        "Stop marching instantly on command."),
+    Command("cmd_double_march", "Double March", "Do Chaal",
+        "Faster march used during urgent movement."),
+    Command("cmd_slow_march", "Slow March", "Dheere Chaal",
+        "Slow ceremonial marching used during parades."),
+
+    /* -------------------- RIFLE DRILL COMMANDS -------------------- */
+
+    Command("cmd_shastra_sambhal", "Shoulder Arms", "Shastra Sambhal",
+        "Position rifle on the shoulder in ready position."),
+    Command("cmd_shastra_arambh", "Order Arms", "Shastra Aram",
+        "Place rifle on the ground beside the right foot."),
+    Command("cmd_shastra_prastut", "Present Arms", "Shastra Prastut",
+        "Rifle salute posture."),
+    Command("cmd_shastra_badhaai", "Slope Arms", "Baazu Shastra",
+        "Rest rifle on the left shoulder at a slope."),
+    Command("cmd_shastra_bail", "Trail Arms", "Trail Shastra",
+        "Hold rifle in right hand while marching."),
+    Command("cmd_shastra_badan_se", "Fix Bayonet", "Bayonet Lagao",
+        "Fix the bayonet to the rifle for ceremonial/field duties."),
+    Command("cmd_shastra_nikaalo", "Unfix Bayonet", "Bayonet Hatao",
+        "Remove bayonet from rifle."),
+
+    /* -------------------- PARADE & CEREMONIAL COMMANDS -------------------- */
+
+    Command("cmd_parade_attention", "Parade Attention", "Virodh Savdhaan",
+        "Parade rest position preparing for inspection."),
+    Command("cmd_report", "Fall in", "Line Mein Aa Jao",
+        "Cadets assemble in proper formation."),
+    Command("cmd_fall_out", "Fall Out", "Line Se Hatao",
+        "Cadets may break formation without leaving area."),
+    Command("cmd_move_left", "Left Incline", "Baen Ghum",
+        "Turn slightly left (45°)."),
+    Command("cmd_move_right", "Right Incline", "Dahina Ghum",
+        "Turn slightly right (45°)."),
+    Command("cmd_file_left", "Left File", "Baen Pankti",
+        "Formation moves left in single file."),
+    Command("cmd_file_right", "Right File", "Dahine Pankti",
+        "Formation moves right in single line."),
+
+    /* -------------------- FLAG & NATIONAL COMMANDS -------------------- */
+
+    Command("cmd_flag_salve", "Salute to National Flag", "Tirange Ko Salam",
+        "Formal salute during flag hoisting or lowering."),
+    Command("cmd_sanghatan", "Group Attention", "Sangathan Savdhaan",
+        "Used during large gatherings and ceremonies."),
+    Command("cmd_jhanda_upar", "Flag Up", "Jhanda Uthao",
+        "Command given at national functions."),
+    Command("cmd_jhanda_niche", "Flag Down", "Jhanda Neeche",
+        "Lowering the national flag ceremonially."),
+
+    /* -------------------- NAVY COMMANDS -------------------- */
+
+    Command("cmd_boat_pull", "Pull Oars", "Kashti Kheecho",
+        "Used during rowing activities in Naval Wing."),
+    Command("cmd_boat_stop", "Oars!", "Oar Sambhal",
+        "Stop rowing immediately."),
+    Command("cmd_semaphore_start", "Start Semaphore", "Sanket Shuru",
+        "Begin flag signaling drill."),
+
+    /* -------------------- AIR WING COMMANDS -------------------- */
+
+    Command("cmd_flight_fallin", "Flight Fall In", "Flight Line Mein",
+        "Air Wing formation lineup."),
+    Command("cmd_propeller_turn", "Propeller Drill", "Propeller Mud",
+        "Used during aero-model handling commands."),
+    Command("cmd_glider_hold", "Hold Glider", "Glider Sambhalo",
+        "Safety command during glider training."),
+
+    /* -------------------- SPECIAL COMMANDS -------------------- */
+
+    Command("cmd_morale", "Unit War Cry", "Josh",
+        "Shout war cry after completion of drills."),
+    Command("cmd_shout_ncc", "NCC Song Call", "N-C-C!",
+        "Used before singing NCC song or march-past."),
+)

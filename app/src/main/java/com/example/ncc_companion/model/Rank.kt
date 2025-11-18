@@ -1,18 +1,20 @@
 package com.example.ncc_companion.model
 
-import androidx.annotation.DrawableRes
-
-enum class Wing(val displayName: String) {
-    ARMY("Army"),
-    NAVY("Navy"),
-    AIR("Air Wing")
-}
-
 data class Rank(
     val id: String,
     val title: String,
     val level: String,
-    val description: String,
     val wing: Wing,
-    @DrawableRes val imageRes: Int
+    val imageRes: Int,
+    val description: String,
+    val responsibilities: String,
+    val badgeMeaning: String,
+    val promotionCriteria: String,
+    val training: String
 )
+
+enum class Wing(val displayName: String) {
+    ARMY("Army Wing"),
+    NAVY("Navy Wing"),
+    AIR("Air Wing")
+}

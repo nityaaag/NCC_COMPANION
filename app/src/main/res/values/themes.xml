@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.NccCompanion" parent="Theme.Material3.DayNight">
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- App Theme (Material 3 + No ActionBar) -->
+    <style name="Theme.NCC" parent="Theme.Material3.DayNight">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- OPTIONAL: allow edge-to-edge -->
+        <item name="android:forceDarkAllowed">true</item>
     </style>
+
 </resources>

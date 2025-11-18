@@ -1,174 +1,139 @@
-package com.example.ncc_companion.ui.screens.ranks
-
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.example.ncc_companion.model.Rank
+import com.example.ncc_companion.model.Wing
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RanksScreen(ranks: List<Rank>) {
-    var selectedRank by remember { mutableStateOf<Rank?>(null) }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+val ranks = listOf(
 
-    LazyColumn(
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .padding(bottom = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
-        items(ranks) { rank ->
-            RankCard(rank = rank) { selectedRank = rank }
-        }
-    }
+    Rank(
+        id = "a1",
+        title = "Cadet",
+        level = "Entry Level",
+        wing = Wing.ARMY,
+        description = "Basic NCC cadet undergoing training.",
+        responsibilities = "Attend parades, learn drills, participate in activities.",
+        badgeMeaning = "No insignia. You are in training.",
+        promotionCriteria = "Good attendance and discipline.",
+        training = "Drill, map reading, first aid.",
+        imageRes = TODO()
+    ),
 
-    selectedRank?.let { rank ->
-        ModalBottomSheet(
-            onDismissRequest = { selectedRank = null },
-            sheetState = sheetState,
-            containerColor = MaterialTheme.colorScheme.surface
-        ) {
-            RankDetail(rank)
-        }
-    }
-}
+    Rank(
+        id = "a2",
+        title = "Lance Corporal (LCpl)",
+        level = "Junior Rank",
+        wing = Wing.ARMY,
+        description = "First leadership position.",
+        responsibilities = "Lead small groups, maintain discipline.",
+        badgeMeaning = "One Chevron represents junior leadership.",
+        promotionCriteria = "High attendance + drill evaluation.",
+        training = "Advanced drill, voice command.",
+        imageRes = TODO()
+    ),
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun RankCard(rank: Rank, onClick: () -> Unit) {
+    Rank(
+        id = "a3",
+        title = "Corporal (Cpl)",
+        level = "Intermediate Rank",
+        wing = Wing.ARMY,
+        description = "Helps in managing junior cadets.",
+        responsibilities = "Training support, supervising squads.",
+        badgeMeaning = "Two Chevrons represent responsibility.",
+        promotionCriteria = "Good performance as LCpl.",
+        training = "Leadership & weapon training basics.",
+        imageRes = TODO()
+    ),
 
-    ElevatedCard(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = onClick,
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
-    ) {
+    Rank(
+        id = "a4",
+        title = "Sergeant",
+        level = "Senior Rank",
+        wing = Wing.ARMY,
+        description = "One of the senior-most ranks.",
+        responsibilities = "Lead parades, maintain discipline.",
+        badgeMeaning = "Three Chevrons indicate seniority.",
+        promotionCriteria = "Excellent merit & discipline.",
+        training = "Advanced leadership, drill mastery.",
+        imageRes = TODO()
+    ),
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
+    Rank(
+        id = "a5",
+        title = "JUO",
+        level = "Junior Under Officer",
+        wing = Wing.ARMY,
+        description = "Second-highest cadet leader.",
+        responsibilities = "Assist SUO in parade & unit duties.",
+        badgeMeaning = "Stripe with NCC emblem.",
+        promotionCriteria = "Best performance + recommendation.",
+        training = "Leadership + national camp exposure.",
+        imageRes = TODO()
+    ),
 
-            // Header Section with Gradient Strip
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(4.dp)
-                    .background(
-                        Brush.horizontalGradient(
-                            colors = listOf(
-                                MaterialTheme.colorScheme.primary,
-                                MaterialTheme.colorScheme.tertiary
-                            )
-                        )
-                    )
-            )
+    Rank(
+        id = "a6",
+        title = "SUO",
+        level = "Senior Under Officer",
+        wing = Wing.ARMY,
+        description = "Highest NCC cadet leader.",
+        responsibilities = "Lead entire parade, commands unit.",
+        badgeMeaning = "Gold stripe with NCC emblem.",
+        promotionCriteria = "Top cadet of the institution.",
+        training = "Highest-level NCC training.",
+        imageRes = TODO()
+    ),
 
-            Spacer(modifier = Modifier.height(12.dp))
+    /* Navy Wing */
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = rank.imageRes),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(80.dp)
-                        .padding(end = 16.dp)
-                )
+    Rank(
+        id = "n1",
+        title = "Leading Cadet",
+        level = "Mid Rank",
+        wing = Wing.NAVY,
+        description = "Trained in basic seamanship.",
+        responsibilities = "Team leading & marine discipline.",
+        badgeMeaning = "Anchor insignia.",
+        promotionCriteria = "Good merit.",
+        training = "Boat pulling, knotting, semaphore.",
+        imageRes = TODO()
+    ),
 
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = rank.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+    Rank(
+        id = "n2",
+        title = "Cadet Captain",
+        level = "Senior Rank",
+        wing = Wing.NAVY,
+        description = "Head of naval cadets.",
+        responsibilities = "Lead naval parades & drills.",
+        badgeMeaning = "Crossed anchors symbol.",
+        promotionCriteria = "Best naval cadet.",
+        training = "Advanced naval training.",
+        imageRes = TODO()
+    ),
 
-                    Spacer(modifier = Modifier.height(2.dp))
+    /* Air Wing */
 
-                    Text(
-                        text = rank.level,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+    Rank(
+        id = "f1",
+        title = "Senior Cadet",
+        level = "Mid Rank",
+        wing = Wing.AIR,
+        description = "Experienced air wing cadet.",
+        responsibilities = "Assist in flight & aero activities.",
+        badgeMeaning = "Propeller insignia.",
+        promotionCriteria = "Strong performance.",
+        training = "Aviation basics, gliding.",
+        imageRes = TODO()
+    ),
 
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(
-                        text = rank.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 3
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun RankDetail(rank: Rank) {
-    Column(
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .padding(vertical = 24.dp)
-            .fillMaxWidth()
-    ) {
-        Text(
-            text = rank.title,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Wing: ${rank.wing.displayName}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Image(
-            painter = painterResource(id = rank.imageRes),
-            contentDescription = null,
-            modifier = Modifier
-                .size(160.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Surface(
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            shape = MaterialTheme.shapes.medium
-        ) {
-            Text(
-                text = rank.description,
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.bodyLarge
-            )
-        }
-    }
-}
+    Rank(
+        id = "f2",
+        title = "Cadet Warrant Officer",
+        level = "Senior Rank",
+        wing = Wing.AIR,
+        description = "Highest flying cadet rank.",
+        responsibilities = "Lead air wing training.",
+        badgeMeaning = "Propeller with wings.",
+        promotionCriteria = "Best flying cadet.",
+        training = "Advanced aviation + microlight flying.",
+        imageRes = TODO()
+    )
+)
